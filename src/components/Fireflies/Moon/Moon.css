@@ -1,0 +1,54 @@
+.moon-wrapper{
+    position:absolute;
+    top:70px;
+    right:120px;
+}
+
+.moon{
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:#FFFDF5;
+
+    position:relative;
+    z-index:2;
+
+    box-shadow:
+    0 0 30px rgba(255,255,255,.7),
+    0 0 90px rgba(255,255,255,.35);
+
+    animation:moonFloat 6s ease-in-out infinite;
+}
+
+.moon-glow{
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    left:-120px;
+    top:-120px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(255,255,255,.20),
+    transparent 70%);
+}
+
+@keyframes moonFloat{
+
+0%,100%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-12px);
+}
+
+}
