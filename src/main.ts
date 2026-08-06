@@ -12,11 +12,16 @@ import { initLetter } from "./letter";
 
 const app = document.getElementById("app") as HTMLDivElement;
 
+// ---------------- START ----------------
+
 showLanding();
 
+// Listen for ending page from letter.ts
 document.addEventListener("show-ending", () => {
     showEnding();
 });
+
+// ---------------- LANDING ----------------
 
 function showLanding() {
 
@@ -28,6 +33,8 @@ function showLanding() {
 
 }
 
+// ---------------- VIDEO ----------------
+
 function showVideo() {
 
     app.innerHTML = VideoScene();
@@ -37,25 +44,42 @@ function showVideo() {
 
     if (!video || !next) return;
 
-    next.hidden = true;
+    next.style.display = "none";
+
+    video.load();
 
     video.play().catch(() => {});
 
-    // Always show the button after 5 seconds
-    setTimeout(() => {
-        next.hidden = false;
-    }, 5000);
+    // Show button when video ends
+    video.onended = () => {
 
-    // Also show it when the video finishes
-    video.addEventListener("ended", () => {
-        next.hidden = false;
-    });
+        next.style.display = "block";
 
-    next.addEventListener("click", () => {
+    };
+
+    // Backup if onended doesn't fire
+    video.ontimeupdate = () => {
+
+        if (
+            video.duration &&
+            video.currentTime >= video.duration - 0.2
+        ) {
+
+            next.style.display = "block";
+
+        }
+
+    };
+
+    next.onclick = () => {
+
         showCake();
-    });
+
+    };
 
 }
+
+// ---------------- CAKE ----------------
 
 function showCake() {
 
@@ -63,6 +87,10 @@ function showCake() {
 
     const flame = document.getElementById("flame") as HTMLElement;
     const continueBtn = document.getElementById("cakeContinue") as HTMLButtonElement;
+
+    if (!flame || !continueBtn) return;
+
+    continueBtn.hidden = true;
 
     flame.onclick = () => {
 
@@ -85,9 +113,15 @@ function showCake() {
 
     };
 
-    continueBtn.onclick = showLetter;
+    continueBtn.onclick = () => {
+
+        showLetter();
+
+    };
 
 }
+
+// ---------------- LETTER ----------------
 
 function showLetter() {
 
@@ -97,12 +131,10 @@ function showLetter() {
 
 }
 
+// ---------------- ENDING ----------------
+
 function showEnding() {
 
     app.innerHTML = EndingScene();
-
-    window.addEventListener("showEnding", () => {
-    showEnding();
-});
 
 }
