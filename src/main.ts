@@ -29,22 +29,37 @@ function showLanding() {
 }
 
 function showVideo() {
-
     app.innerHTML = VideoScene();
 
     const video = document.getElementById("birthdayVideo") as HTMLVideoElement;
     const next = document.getElementById("videoNext") as HTMLButtonElement;
 
-    video.play();
+    if (!video || !next) return;
 
+    // Show button when video finishes
     video.onended = () => {
-
+        console.log("Video ended!");
         next.hidden = false;
-
     };
 
-    next.onclick = showCake;
+    // Backup in case onended doesn't fire
+    video.ontimeupdate = () => {
+        if (
+            video.duration &&
+            video.currentTime >= video.duration - 0.3
+        ) {
+            next.hidden = false;
+        }
+    };
 
+    // Start playing
+    video.play().catch(err => {
+        console.log("Autoplay blocked:", err);
+    });
+
+    next.onclick = () => {
+        showCake();
+    };
 }
 
 function showCake() {
