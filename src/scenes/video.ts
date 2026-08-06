@@ -4,19 +4,14 @@ export function VideoScene() {
 
       <video
         id="birthdayVideo"
+        autoplay
         playsinline
         controls
-        autoplay
       >
-        <source src="./videos/shinchan.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+        <source src="${import.meta.env.BASE_URL}videos/shinchan.mp4" type="video/mp4">
       </video>
 
-      <button
-        id="videoNext"
-        class="continue"
-        hidden
-      >
+      <button id="videoNext" hidden>
         Continue →
       </button>
 
