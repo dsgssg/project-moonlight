@@ -29,6 +29,7 @@ function showLanding() {
 }
 
 function showVideo() {
+
     app.innerHTML = VideoScene();
 
     const video = document.getElementById("birthdayVideo") as HTMLVideoElement;
@@ -36,30 +37,24 @@ function showVideo() {
 
     if (!video || !next) return;
 
-    // Show button when video finishes
-    video.onended = () => {
-        console.log("Video ended!");
+    next.hidden = true;
+
+    video.play().catch(() => {});
+
+    // Always show the button after 5 seconds
+    setTimeout(() => {
         next.hidden = false;
-    };
+    }, 5000);
 
-    // Backup in case onended doesn't fire
-    video.ontimeupdate = () => {
-        if (
-            video.duration &&
-            video.currentTime >= video.duration - 0.3
-        ) {
-            next.hidden = false;
-        }
-    };
-
-    // Start playing
-    video.play().catch(err => {
-        console.log("Autoplay blocked:", err);
+    // Also show it when the video finishes
+    video.addEventListener("ended", () => {
+        next.hidden = false;
     });
 
-    next.onclick = () => {
+    next.addEventListener("click", () => {
         showCake();
-    };
+    });
+
 }
 
 function showCake() {
