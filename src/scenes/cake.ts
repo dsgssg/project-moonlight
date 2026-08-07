@@ -1,35 +1,38 @@
 export function CakeScene() {
-  return `
-    <main class="cake-scene">
 
-      <h1 class="cake-title">Make a Wish ✨</h1>
+    const cakeImg = `${import.meta.env.BASE_URL}images/cake.png`;
 
-      <div class="cake-container">
+    return `
+        <main class="cake-scene">
 
-        <div id="flame"></div>
+            <h1 class="cake-title">Make a Wish ✨</h1>
 
-        <div class="candle"></div>
+            <div class="cake-container">
 
-        <img
-          src="/images/cake.png"
-          alt="Birthday Cake"
-          class="cake-image"
-        />
+                <div id="flame"></div>
 
-      </div>
+                <div class="candle"></div>
 
-      <p class="cake-text">
-        Tap the candle to blow it out
-      </p>
+                <img
+                    src="${cakeImg}"
+                    alt="Birthday Cake"
+                    class="cake-image"
+                />
 
-      <button
-  id="cakeContinue"
-  class="continue"
-  hidden
->
-    Continue →
-</button>
+            </div>
 
-    </main>
-  `;
+            <p class="cake-text">
+                Tap the candle to blow it out
+            </p>
+
+            <button
+                id="cakeContinue"
+                class="continue"
+                hidden
+            >
+                Continue →
+            </button>
+
+        </main>
+    `;
 }
